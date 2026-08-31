@@ -1,90 +1,441 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="manifest" href="manifest.json"><meta name="theme-color" content="#050505">
-<title>JEE Tracker • Raj Sharma</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EXAMYWEB — PYQ & Study Operating System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #edf2fe 50%, #e0e7ff 100%);
+      --card-bg: rgba(255, 255, 255, 0.85);
+      --card-border: rgba(226, 232, 240, 0.8);
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --text-dark: #0f172a;
+      --text-muted: #64748b;
+      --accent-blue: #3b82f6;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    body {
+      background: var(--bg-gradient);
+      color: var(--text-dark);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* Screen UI Layout */
+    .app-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Header Nav */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      margin-bottom: 30px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .hero h1 {
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+      color: #1e1b4b;
+    }
+
+    .hero p {
+      color: var(--text-muted);
+      font-size: 15px;
+      max-width: 550px;
+      margin: 0 auto 24px auto;
+    }
+
+    /* Main Dashboard / Form Grid */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 10px 30px -10px rgba(79, 70, 229, 0.05);
+    }
+
+    .card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    /* Input Controls */
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #334155;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      background: rgba(255, 255, 255, 0.9);
+      outline: none;
+      font-size: 14px;
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    /* Stats Preview */
+    .stat-box {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stat-val {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    /* PRINT ONLY STYLES (Generates A4 Landscape Printable Layout) */
+    #printable-pdf { display: none; }
+
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 8mm;
+      }
+
+      body * { visibility: hidden; }
+
+      #printable-pdf, #printable-pdf * {
+        visibility: visible;
+      }
+
+      #printable-pdf {
+        display: block !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: #fff;
+        color: #000;
+      }
+
+      .pdf-header {
+        border-bottom: 2px solid #000;
+        padding-bottom: 4px;
+        margin-bottom: 8px;
+      }
+
+      .pdf-header h2 {
+        font-size: 16px;
+        text-transform: uppercase;
+        font-weight: 800;
+      }
+
+      .pdf-sub {
+        font-size: 9px;
+        color: #333;
+      }
+
+      .pdf-subject {
+        font-size: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        background: #f1f5f9;
+        padding: 4px 8px;
+        border: 1px solid #000;
+        display: inline-block;
+        margin: 6px 0;
+      }
+
+      table.pdf-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+      }
+
+      table.pdf-table th, table.pdf-table td {
+        border: 1px solid #000;
+        text-align: center;
+        vertical-align: middle;
+        padding: 6px 4px;
+        font-size: 11px;
+      }
+
+      table.pdf-table th {
+        background-color: #f1f5f9;
+        font-size: 9px;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .col-sr { width: 4%; }
+      .col-name { width: 22%; text-align: left !important; padding-left: 8px !important; }
+      .col-total { width: 8%; }
+      .col-blocks { width: 56%; text-align: left !important; padding-left: 8px !important; }
+      .col-rev { width: 10%; }
+
+      .blocks-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 12px;
+        align-items: center;
+      }
+
+      .block-item {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 10px;
+      }
+
+      .checkbox {
+        width: 12px;
+        height: 12px;
+        border: 1px solid #000;
+        display: inline-block;
+      }
+
+      .rev-box {
+        width: 16px;
+        height: 16px;
+        border: 1.5px solid #000;
+        margin: 0 auto;
+      }
+    }
+  </style>
 </head>
 <body>
-<div class="app-shell">
-  <header class="topbar">
-    <div class="brand"><div class="brand-mark">J</div><div><h1>JEE Tracker</h1><p>Study smarter. Track everything.</p></div></div>
-    <div class="top-actions">
-      <button class="theme-btn" id="themeBtn">🎨 Theme</button>
-      <button class="mobile-menu" id="mobileMenu">☰</button>
+
+  <div class="app-container">
+    <header>
+      <div class="brand">
+        <div class="brand-logo">E</div> EXAMYWEB
+      </div>
+      <span style="font-size: 12px; font-weight: 600; color: #16a34a; background: #dcfce7; padding: 4px 10px; border-radius: 20px;">● Live Tracker</span>
+    </header>
+
+    <div class="hero">
+      <span class="tag">STUDY OPERATING SYSTEM</span>
+      <h1>Turn your preparation into a system.</h1>
+      <p>Generate printable PYQ question trackers with automatic 10-question completion blocks for offline practice.</p>
     </div>
-  </header>
 
-  <div class="layout">
-    <aside class="sidebar" id="sidebar">
-      <div class="nav-title">MENU</div>
-      <button class="nav-item active" data-page="dashboard">⌂ <span>Dashboard</span></button>
-      <button class="nav-item" data-page="tracker">📚 <span>Study Tracker</span></button>
-      <button class="nav-item" data-page="focus">🎯 <span>Focus Mode</span></button>
-      <button class="nav-item" data-page="planner">📝 <span>Daily Planner</span></button>
-      <div class="sidebar-bottom"><span>JEE • 2027</span><small>Founder<br><b>Raj Sharma</b></small></div>
-    </aside>
+    <div class="dashboard-grid">
+      <!-- Input Panel -->
+      <div class="card">
+        <h3>PYQ Tracker Generator</h3>
+        <p>Enter your chapter details to generate a clean A4 printable sheet.</p>
 
-    <main class="content">
-      <section class="page active" id="page-dashboard">
-        <div class="hero"><div><span class="eyebrow">YOUR COMMAND CENTER</span><h2>Welcome back 👋</h2><p>Everything you need to stay consistent, in one clean dashboard.</p></div><div class="hero-date" id="todayLabel"></div></div>
-        <div class="stats">
-          <div class="stat-card"><span>📅</span><b id="daysDone">0</b><small>Study days</small></div>
-          <div class="stat-card"><span>▶</span><b id="lecSum">0</b><small>Lectures</small></div>
-          <div class="stat-card"><span>✦</span><b id="questionSum">0</b><small>Questions</small></div>
-          <div class="stat-card"><span>🎯</span><b id="focusToday">0m</b><small>Focus today</small></div>
+        <div class="form-group">
+          <label>Select Subject</label>
+          <select id="subjectInput">
+            <option value="PHYSICS">Physics</option>
+            <option value="CHEMISTRY">Chemistry</option>
+            <option value="MATHEMATICS">Mathematics</option>
+          </select>
         </div>
-        <div class="grid-2">
-          <div class="panel"><div class="panel-head"><div><span class="eyebrow">STUDY</span><h3>Subject-wise Questions</h3></div><button class="ghost" data-go="tracker">Open Tracker →</button></div>
-            <div class="subject-grid">
-              <div><span>Physics</span><strong id="dashPhy">0</strong><i></i></div>
-              <div><span>Chemistry</span><strong id="dashChem">0</strong><i></i></div>
-              <div><span>Mathematics</span><strong id="dashMath">0</strong><i></i></div>
-            </div>
+
+        <div class="form-group">
+          <label>Chapter Name</label>
+          <input type="text" id="chapterInput" placeholder="e.g. Laws of Motion">
+        </div>
+
+        <div class="form-group">
+          <label>Total PYQs Available</label>
+          <input type="number" id="totalPyqInput" placeholder="e.g. 45">
+        </div>
+
+        <button class="btn-primary" onclick="generateAndPrint()">Print Tracker PDF →</button>
+      </div>
+
+      <!-- Feature Card -->
+      <div class="card">
+        <h3>System Metrics</h3>
+        <p>Live calculation preview based on your parameters.</p>
+
+        <div class="stat-box">
+          <div>
+            <div style="font-size: 11px; color: #64748b; font-weight: 600;">BLOCK SIZE</div>
+            <div style="font-size: 13px; font-weight: 700;">10 Questions / Block</div>
           </div>
-          <div class="panel countdown-panel"><span class="eyebrow">JEE MAINS</span><h3 id="dashCountdown">—</h3><p>Days remaining</p><div class="progress"><i id="dashProgress"></i></div></div>
+          <div class="stat-val">10Q</div>
         </div>
-        <div class="panel quick-panel"><div><span class="eyebrow">QUICK ACTIONS</span><h3>What are you doing now?</h3></div><div class="quick-actions"><button data-go="tracker">📚 Log Study</button><button data-go="focus">🎯 Start Focus</button><button data-go="planner">📝 Plan Today</button></div></div>
-      </section>
 
-      <section class="page" id="page-tracker">
-        <div class="page-head"><div><span class="eyebrow">STUDY TRACKER</span><h2>Lectures & Questions</h2><p>Log your daily JEE work without clutter.</p></div><button class="primary" id="pdfBtn">↓ Download PDF</button></div>
-        <div class="tracker-tools panel">
-          <div><label>Start date</label><input id="startDate" type="date"></div><button class="secondary" id="datesBtn">Fill Dates</button><button class="secondary" id="addBtn">+ 15 Days</button>
-          <div><label>JEE Mains target</label><input id="examDate" type="date" value="2027-01-24"></div>
-          <button class="ghost" id="saveBtn">Save</button><button class="ghost" id="loadBtn">Load</button><button class="danger" id="clearBtn">Clear</button>
+        <div class="stat-box">
+          <div>
+            <div style="font-size: 11px; color: #64748b; font-weight: 600;">AUTOMATIC BLOCKS</div>
+            <div style="font-size: 13px; font-weight: 700;">Calculated from Total PYQs</div>
+          </div>
+          <div class="stat-val" id="previewBlockCount">0</div>
         </div>
-        <div class="stats compact"><div class="stat-card"><b id="questionSum2">0</b><small>Total questions</small></div><div class="stat-card"><b id="pyqSum">0</b><small>PYQs</small></div><div class="stat-card"><b id="avgQ">0</b><small>Avg/day</small></div><div class="stat-card"><b id="qTarget">0%</b><small>vs 70/day</small></div></div>
-        <div class="panel table-panel"><div class="table-title"><h3>Daily Study Log</h3><span>Tip: enter 18Q or 12/15</span></div><div class="table-wrap"><table id="tracker"><thead><tr><th>DATE</th><th>LEC</th><th>PHY HW/ILLU</th><th>CHEM HW/ILLU</th><th>MATH HW/ILLU</th><th>PHY DPP</th><th>CHEM DPP</th><th>MATH DPP</th><th>PHY PYQ</th><th>CHEM PYQ</th><th>MATH PYQ</th></tr></thead><tbody></tbody></table></div></div>
-      </section>
-
-      <section class="page" id="page-focus">
-        <div class="page-head"><div><span class="eyebrow">FOCUS MODE</span><h2>Deep work, no distractions.</h2><p>Log the time you actually studied.</p></div></div>
-        <div class="focus-grid">
-          <div class="panel timer-panel"><span class="eyebrow">FOCUS TIMER</span><div id="timerDisplay">00:00:00</div><div class="timer-state" id="timerState">Ready when you are.</div><div class="timer-controls"><button class="primary" id="timerStart">▶ Start</button><button class="secondary" id="timerPause">Ⅱ Pause</button><button class="danger" id="timerReset">↺ Reset</button></div><div class="timer-form"><select id="focusSubject"><option>Physics</option><option>Chemistry</option><option>Mathematics</option><option>Other</option></select><select id="focusActivity"><option>Questions</option><option>Lecture</option><option>Revision</option><option>PYQ</option></select><input id="focusNote" placeholder="Optional note"></div></div>
-          <div class="panel"><div class="panel-head"><div><span class="eyebrow">TODAY</span><h3>Focus summary</h3></div></div><div class="focus-big" id="focusBig">0m</div><div class="mini-stats"><div><b id="focusSessions">0</b><span>Sessions</span></div><div><b id="focusQuestions">0</b><span>Questions</span></div></div><button class="secondary full" id="manualFocusBtn">+ Add manual focus log</button></div>
-        </div>
-        <div class="panel"><div class="panel-head"><div><span class="eyebrow">HISTORY</span><h3>Focus logs</h3></div></div><div id="focusLogs" class="logs"></div></div>
-      </section>
-
-      <section class="page" id="page-planner">
-        <div class="page-head"><div><span class="eyebrow">DAILY PLANNER</span><h2>Plan your day.</h2><p>Date-wise todos that stay saved on your device.</p></div></div>
-        <div class="planner-bar panel"><input id="plannerDate" type="date"><input id="todoInput" placeholder="Add a task…"><select id="todoType"><option>Study</option><option>Revision</option><option>Questions</option><option>Personal</option></select><button class="primary" id="addTodo">+ Add</button></div>
-        <div class="planner-layout"><div class="panel"><div class="panel-head"><div><span class="eyebrow">TASKS</span><h3 id="plannerTitle">Today's Plan</h3></div><span class="count-pill" id="todoCount">0</span></div><div id="todoList" class="todo-list"></div></div><div class="panel planner-side"><span class="eyebrow">PROGRESS</span><div class="planner-ring" id="plannerRing">0%</div><p id="plannerProgressText">0 of 0 tasks complete</p></div></div>
-      </section>
-
-      <footer>Built with focus by <b>Raj Sharma</b> · JEE Tracker</footer>
-    </main>
+      </div>
+    </div>
   </div>
-</div>
 
-<div class="theme-drawer" id="themeDrawer"><div class="theme-head"><b>Choose Theme</b><button id="closeTheme">×</button></div><div class="theme-grid" id="themeGrid"></div></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
-<script src="script.js"></script>
-<script>
-let deferredInstallPrompt=null;
-window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferredInstallPrompt=e;});
-</script>
-</body></html>
+  <!-- PDF TEMPLATE (Triggers on window.print) -->
+  <div id="printable-pdf">
+    <div class="pdf-header">
+      <h2>JEE PYQ QUESTION TRACKER</h2>
+      <div class="pdf-sub">Offline Printable Tracker • Tick each 10-question block after completion</div>
+    </div>
+
+    <div class="pdf-subject" id="pdfSubject">PHYSICS</div>
+
+    <table class="pdf-table">
+      <thead>
+        <tr>
+          <th class="col-sr">#</th>
+          <th class="col-name">Chapter Name</th>
+          <th class="col-total">Total PYQ</th>
+          <th class="col-blocks">Questions (10 Ques per block)</th>
+          <th class="col-rev">REV</th>
+        </tr>
+      </thead>
+      <tbody id="pdfTableBody">
+        <!-- Dynamic Row Inserted Here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Live block count calculation on typing
+    document.getElementById('totalPyqInput').addEventListener('input', function(e) {
+      const val = parseInt(e.target.value) || 0;
+      const blocks = Math.ceil(val / 10);
+      document.getElementById('previewBlockCount').innerText = blocks;
+    });
+
+    function generateAndPrint() {
+      const subject = document.getElementById('subjectInput').value;
+      const chapter = document.getElementById('chapterInput').value.trim();
+      const totalPyqs = parseInt(document.getElementById('totalPyqInput').value);
+
+      if (!chapter || !totalPyqs) {
+        alert('Bhai, pehle Chapter Name aur Total PYQs fill kar lo!');
+        return;
+      }
+
+      // 1. PDF Header Subject Update
+      document.getElementById('pdfSubject').innerText = subject;
+
+      // 2. 10-Question Blocks Generate Karna
+      const totalBlocks = Math.ceil(totalPyqs / 10);
+      let blocksHTML = '<div class="blocks-wrapper">';
+
+      for (let i = 1; i <= totalBlocks; i++) {
+        let start = (i - 1) * 10 + 1;
+        let end = Math.min(i * 10, totalPyqs);
+        blocksHTML += `<div class="block-item"><div class="checkbox"></div> ${start}-${end}</div>`;
+      }
+      blocksHTML += '</div>';
+
+      // 3. Table Row Render
+      const rowHTML = `
+        <tr>
+          <td>1</td>
+          <td class="col-name">${chapter}</td>
+          <td><strong>${totalPyqs}</strong></td>
+          <td>${blocksHTML}</td>
+          <td><div class="rev-box"></div></td>
+        </tr>
+      `;
+
+      document.getElementById('pdfTableBody').innerHTML = rowHTML;
+
+      // 4. Open Print Dialog (Save as PDF)
+      window.print();
+    }
+  </script>
+</body>
+</html>
