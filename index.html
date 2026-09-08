@@ -3,218 +3,944 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Govt. Polytechnic Kanpur | Premium</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
-        /* Minerva Theme - Minimalist, High Contrast & Modern */
+    <title>Govt. Polytechnic Kanpur | Premium</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           GLOBAL
+        ========================================= */
+
         :root {
-            --primary-bg: #ffffff;
-            --secondary-bg: #f9f9f9;
-            --text-main: #000000;
-            --text-muted: #555555;
-            --accent: #d32f2f; /* Premium dark red accent */
+            --white: #ffffff;
+            --black: #0b0b0b;
+            --light: #f7f7f7;
+            --border: #e5e5e5;
+            --muted: #666666;
+            --red: #d32f2f;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--primary-bg);
-            color: var(--text-main);
+            font-family: 'Inter', Arial, sans-serif;
+            background: var(--white);
+            color: var(--black);
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Modern Navbar */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(5px);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 25px 50px;
-            box-shadow: 0 1px 0 rgba(0,0,0,0.05);
-            z-index: 1000;
-        }
-
-        .logo {
-            font-size: 1.3rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            cursor: pointer;
-            text-transform: uppercase;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 35px;
-        }
-
-        .nav-links button {
-            background: none;
-            border: none;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s;
-            padding-bottom: 5px;
-        }
-
-        .nav-links button:hover, .nav-links button.active {
-            color: var(--text-main);
-            border-bottom: 2px solid var(--accent);
-        }
-
-        /* Page Container */
-        .page {
-            display: none;
-            padding-top: 100px; /* Space for navbar */
-            min-height: 100vh;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        .page.active {
+        img {
+            max-width: 100%;
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+        button {
+            font-family: inherit;
         }
 
-        /* Hero Section (Home) */
-        .hero {
+
+        /* =========================================
+           NAVBAR
+        ========================================= */
+
+        .gp-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 82px;
+
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(10px);
+
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
-            padding: 60px 20px;
-            background: var(--secondary-bg);
+            justify-content: space-between;
+
+            padding: 0 50px;
+
+            border-bottom: 1px solid #eeeeee;
+
+            z-index: 9999;
         }
 
-        .hero h1 {
-            font-size: 4.5rem;
-            font-weight: 700;
-            letter-spacing: -2.5px;
-            line-height: 1.05;
-            max-width: 1000px;
-            margin-bottom: 25px;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            color: var(--text-muted);
-            max-width: 700px;
-            margin-bottom: 50px;
-            font-weight: 300;
-        }
-
-        .hero img {
-            width: 100%;
-            max-width: 900px;
-            height: auto;
-            object-fit: cover;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        /* Section Layouts */
-        .section-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 80px 20px;
-        }
-
-        .section-title {
-            font-size: 2.8rem;
-            font-weight: 700;
-            margin-bottom: 50px;
-            letter-spacing: -1.5px;
-            border-bottom: 3px solid var(--text-main);
-            display: inline-block;
-            padding-bottom: 10px;
-        }
-
-        /* Grid for Content */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-        }
-        
-        .grid-3 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-
-        .card {
-            background: var(--primary-bg);
-            padding: 40px;
-            border: 1px solid #eaeaea;
-            border-top: 4px solid var(--text-main);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-
-        .card h3 {
-            font-size: 1.6rem;
-            margin-bottom: 20px;
+        .gp-logo {
+            font-size: 1.25rem;
+            font-weight: 800;
             letter-spacing: -0.5px;
-        }
-
-        .card p {
-            color: var(--text-muted);
-            font-size: 1.05rem;
-        }
-
-        /* Tables for Placements */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 30px;
-            font-size: 1.1rem;
-        }
-
-        th, td {
-            padding: 20px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: var(--secondary-bg);
-            font-weight: 700;
             text-transform: uppercase;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .gp-nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .gp-nav-links button {
+            position: relative;
+
+            background: transparent;
+            border: none;
+
+            color: #555;
+            font-size: 0.78rem;
+            font-weight: 600;
+
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+
+            padding: 8px 0;
+            cursor: pointer;
+
+            transition: 0.3s ease;
+        }
+
+        .gp-nav-links button::after {
+            content: "";
+
+            position: absolute;
+            left: 0;
+            bottom: 0;
+
+            width: 0;
+            height: 2px;
+
+            background: var(--red);
+
+            transition: width 0.3s ease;
+        }
+
+        .gp-nav-links button:hover,
+        .gp-nav-links button.active {
+            color: var(--black);
+        }
+
+        .gp-nav-links button:hover::after,
+        .gp-nav-links button.active::after {
+            width: 100%;
+        }
+
+
+        /* =========================================
+           PAGE SYSTEM
+        ========================================= */
+
+        .gp-page {
+            display: none;
+            min-height: 100vh;
+            padding-top: 82px;
+
+            animation: gpFade 0.4s ease;
+        }
+
+        .gp-page.active {
+            display: block;
+        }
+
+        @keyframes gpFade {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* =========================================
+           HOME HERO
+        ========================================= */
+
+        .gp-hero {
+            position: relative;
+
+            min-height: calc(100vh - 82px);
+
+            display: flex;
+            align-items: center;
+
+            padding: 70px 7%;
+
+            background: #111;
+
+            overflow: hidden;
+        }
+
+        .gp-hero-image {
+            position: absolute;
+
+            inset: 0;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            opacity: 0.72;
+        }
+
+        .gp-hero-overlay {
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(0, 0, 0, 0.88) 0%,
+                    rgba(0, 0, 0, 0.65) 35%,
+                    rgba(0, 0, 0, 0.15) 75%
+                );
+        }
+
+        .gp-hero-content {
+            position: relative;
+
+            max-width: 650px;
+
+            color: white;
+
+            z-index: 2;
+        }
+
+        .gp-small-title {
+            display: inline-block;
+
+            margin-bottom: 18px;
+
+            color: #eeeeee;
+
+            font-size: 0.75rem;
+            font-weight: 600;
+
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .gp-small-title::before {
+            content: "";
+
+            display: inline-block;
+
+            width: 30px;
+            height: 2px;
+
+            background: var(--red);
+
+            margin-right: 12px;
+
+            vertical-align: middle;
+        }
+
+        .gp-hero h1 {
+            font-size: clamp(3rem, 6vw, 5.8rem);
+
+            line-height: 0.98;
+
+            letter-spacing: -4px;
+
+            margin-bottom: 28px;
+
+            font-weight: 800;
+        }
+
+        .gp-hero p {
+            max-width: 600px;
+
+            color: #dddddd;
+
+            font-size: 1.1rem;
+
+            font-weight: 300;
+
+            margin-bottom: 35px;
+        }
+
+        .gp-hero-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+
+            padding: 14px 25px;
+
+            background: var(--red);
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 0.8rem;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: 1px;
+
+            transition: 0.3s ease;
+        }
+
+        .gp-hero-btn:hover {
+            background: #b71c1c;
+            transform: translateY(-2px);
+        }
+
+
+        /* =========================================
+           SECTION
+        ========================================= */
+
+        .gp-section {
+            max-width: 1250px;
+
+            margin: auto;
+
+            padding: 90px 25px;
+        }
+
+        .gp-section-header {
+            margin-bottom: 55px;
+        }
+
+        .gp-label {
+            color: var(--red);
+
+            font-size: 0.7rem;
+            font-weight: 700;
+
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .gp-section-title {
+            margin-top: 8px;
+
+            font-size: clamp(2.2rem, 4vw, 3.5rem);
+
+            line-height: 1.1;
+
+            letter-spacing: -2px;
+
+            font-weight: 800;
+        }
+
+
+        /* =========================================
+           ABOUT
+        ========================================= */
+
+        .gp-about-grid {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 60px;
+
+            align-items: stretch;
+        }
+
+        .gp-about-card {
+            padding: 40px;
+
+            border: 1px solid var(--border);
+
+            border-top: 4px solid var(--black);
+
+            background: white;
+
+            transition: 0.3s ease;
+        }
+
+        .gp-about-card:hover {
+            transform: translateY(-5px);
+
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .gp-about-card h3 {
+            font-size: 1.5rem;
+
+            margin-bottom: 18px;
+        }
+
+        .gp-about-card p {
+            color: var(--muted);
+
+            font-size: 1rem;
+        }
+
+
+        /* =========================================
+           DEPARTMENTS
+        ========================================= */
+
+        .gp-department-section {
+            background: var(--light);
+        }
+
+        .gp-department-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 20px;
+        }
+
+        .gp-department-card {
+            background: white;
+
+            border: 1px solid var(--border);
+
+            padding: 30px;
+
+            min-height: 190px;
+
+            transition: 0.3s ease;
+        }
+
+        .gp-department-card:hover {
+            transform: translateY(-5px);
+
+            border-color: #cccccc;
+
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .gp-department-number {
+            color: var(--red);
+
+            font-size: 0.75rem;
+            font-weight: 700;
+
+            margin-bottom: 22px;
+        }
+
+        .gp-department-card h3 {
+            font-size: 1.15rem;
+
+            margin-bottom: 12px;
+        }
+
+        .gp-department-card p {
+            color: var(--muted);
+
             font-size: 0.9rem;
+        }
+
+
+        /* =========================================
+           PLACEMENTS
+        ========================================= */
+
+        .gp-table-wrapper {
+            width: 100%;
+
+            overflow-x: auto;
+
+            border: 1px solid var(--border);
+        }
+
+        .gp-placement-table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 750px;
+        }
+
+        .gp-placement-table th,
+        .gp-placement-table td {
+            padding: 18px 20px;
+
+            text-align: left;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .gp-placement-table th {
+            background: var(--light);
+
+            font-size: 0.75rem;
+
+            text-transform: uppercase;
+
             letter-spacing: 1px;
         }
 
-        /* Footer */
-        footer {
-            background: var(--text-main);
-            color: white;
-            text-align: center;
-            padding: 50px 20px;
-            margin-top: 50px;
+        .gp-placement-table td {
             font-size: 0.9rem;
+
+            color: #444;
+        }
+
+        .gp-placement-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .gp-placement-table td:last-child {
+            color: var(--red);
+
+            font-weight: 700;
+        }
+
+
+        /* =========================================
+           CONTACT
+        ========================================= */
+
+        .gp-contact-section {
+            background: var(--light);
+        }
+
+        .gp-contact-grid {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 50px;
+
+            align-items: stretch;
+        }
+
+        .gp-contact-card {
+            background: white;
+
+            border: 1px solid var(--border);
+
+            padding: 45px;
+        }
+
+        .gp-contact-card h3 {
+            font-size: 1.6rem;
+
+            margin-bottom: 30px;
+        }
+
+        .gp-contact-item {
+            margin-bottom: 25px;
+        }
+
+        .gp-contact-item strong {
+            display: block;
+
+            font-size: 0.75rem;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 5px;
+
+            color: var(--red);
+        }
+
+        .gp-contact-item span {
+            color: var(--muted);
+
+            font-size: 1rem;
+        }
+
+        .gp-contact-image {
+            width: 100%;
+            height: 100%;
+
+            min-height: 400px;
+
+            object-fit: cover;
+
+            border-top: 4px solid var(--black);
+        }
+
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        .gp-footer {
+            background: var(--black);
+
+            color: white;
+
+            text-align: center;
+
+            padding: 45px 20px;
+        }
+
+        .gp-footer p {
+            color: #aaa;
+
+            font-size: 0.8rem;
+
             letter-spacing: 0.5px;
         }
+
+
+        /* =========================================
+           MOBILE MENU
+        ========================================= */
+
+        .gp-mobile-menu {
+            display: none;
+
+            background: transparent;
+
+            border: none;
+
+            font-size: 1.7rem;
+
+            cursor: pointer;
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
+        @media (max-width: 1000px) {
+
+            .gp-navbar {
+                padding: 0 25px;
+            }
+
+            .gp-nav-links {
+                gap: 18px;
+            }
+
+            .gp-department-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+
+        @media (max-width: 768px) {
+
+            .gp-navbar {
+                height: 70px;
+            }
+
+            .gp-logo {
+                font-size: 0.95rem;
+            }
+
+            .gp-mobile-menu {
+                display: block;
+            }
+
+            .gp-nav-links {
+                display: none;
+
+                position: absolute;
+
+                top: 70px;
+                left: 0;
+
+                width: 100%;
+
+                background: white;
+
+                padding: 20px;
+
+                flex-direction: column;
+
+                gap: 5px;
+
+                border-bottom: 1px solid var(--border);
+            }
+
+            .gp-nav-links.mobile-open {
+                display: flex;
+            }
+
+            .gp-nav-links button {
+                width: 100%;
+
+                text-align: left;
+
+                padding: 13px 5px;
+            }
+
+            .gp-page {
+                padding-top: 70px;
+            }
+
+            .gp-hero {
+                min-height: calc(100vh - 70px);
+
+                padding: 60px 25px;
+            }
+
+            .gp-hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .gp-about-grid,
+            .gp-contact-grid {
+                grid-template-columns: 1fr;
+
+                gap: 25px;
+            }
+
+            .gp-department-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gp-section {
+                padding: 65px 20px;
+            }
+
+            .gp-contact-image {
+                min-height: 300px;
+            }
+        }
+
+
+        @media (max-width: 480px) {
+
+            .gp-logo {
+                font-size: 0.82rem;
+            }
+
+            .gp-hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .gp-hero p {
+                font-size: 0.95rem;
+            }
+
+            .gp-about-card,
+            .gp-contact-card {
+                padding: 25px;
+            }
+
+            .gp-section-title {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         NAVIGATION
+    ========================================= -->
+
+    <nav class="gp-navbar">
+
+        <div class="gp-logo" onclick="showPage('home')">
+            Govt. Polytechnic Kanpur
+        </div>
+
+        <button class="gp-mobile-menu" onclick="toggleMenu()" aria-label="Open Menu">
+            ☰
+        </button>
+
+        <div class="gp-nav-links" id="gpNavLinks">
+
+            <button class="active"
+                    id="btn-home"
+                    onclick="showPage('home')">
+                Home
+            </button>
+
+            <button id="btn-about"
+                    onclick="showPage('about')">
+                About Us
+            </button>
+
+            <button id="btn-departments"
+                    onclick="showPage('departments')">
+                Departments
+            </button>
+
+            <button id="btn-placements"
+                    onclick="showPage('placements')">
+                Placements
+            </button>
+
+            <button id="btn-contact"
+                    onclick="showPage('contact')">
+                Contact
+            </button>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================================
+         HOME
+    ========================================= -->
+
+    <section id="home" class="gp-page active">
+
+        <div class="gp-hero">
+
+            <img
+                class="gp-hero-image"
+                src="10354.jpg"
+                alt="Government Polytechnic Kanpur Main Building"
+            >
+
+            <div class="gp-hero-overlay"></div>
+
+            <div class="gp-hero-content">
+
+                <span class="gp-small-title">
+                    Empowering Skills | Building Tomorrow
+                </span>
+
+                <h1>
+                    Redefining<br>
+                    Technical<br>
+                    Education.
+                </h1>
+
+                <p>
+                    Empowering the next generation of engineers
+                    and innovators in Uttar Pradesh with critical
+                    thinking and practical mastery.
+                </p>
+
+                <a
+                    href="#"
+                    class="gp-hero-btn"
+                    onclick="showPage('about'); return false;"
+                >
+                    Explore More →
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         ABOUT
+    ========================================= -->
+
+    <section id="about" class="gp-page">
+
+        <div class="gp-section">
+
+            <div class="gp-section-header">
+
+                <span class="gp-label">
+                    About Us
+                </span>
+
+                <h2 class="gp-section-title">
+                    Mission & Vision
+                </h2>
+
+            </div>
+
+
+            <div class="gp-about-grid">
+
+                <div class="gp-about-card">
+
+                    <h3>
+                        Our Mission
+                    </h3>
+
+                    <p>
+                        We are committed to produce highly skilled
+                        professionals who are trained and guided by us
+                        in the field of research and technical education
+                        to serve the society. Our mission is to illuminate
+                        the lamp of knowledge in the nation for everyone
+                        who deserves to be well educated.
+                    </p>
+
+                </div>
+
+
+                <div class="gp-about-card">
+
+                    <h3>
+                        Our Vision
+                    </h3>
+
+                    <p>
+                        Our vision is to produce outstandingly capable,
+                        trained, conversant and skilful individuals having
+                        passion for technology with positive attitude and
+                        urge to become successful professional citizens.
+                        We provide excellent standard of quality technical
+                        education by keeping pace with rapidly changing
+                        technology.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         DEPARTMENTS
+    ========================================= -->
+
+    <section id="departments" class="gp-page gp-department-section">
+
+        <div class="gp-section">
+
+            <div class="gp-section-header">
+
+                <span class="gp-label">
+                    Academics
+                </span>
+
+                <h2 class="gp-section-title">
+                    Academic Departments
+                </h2>
+
+            </div>
+
+
+            <div class="gp-department-grid">
+
+
+                <div class="gp-department-card">
+                    <div class="gp-department-number">01</div>
+                    <h3>Civil Engineering</h3>
+                    <p>
+                        Building the infrastructure of tomorrow.
+                    </p>
+                </div>
+
+
+                <div class="gp-department-card">
+                    <div class="gp-department-number">02</div>
+                    <h3>Mechanical Engineering</h3>
+                    <p>
+                        Specializations
 
         /* Responsive */
         @media (max-width: 768px) {
