@@ -7,57 +7,40 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="/style.css">
 </head>
 <body>
 <div class="app">
 <aside class="sidebar" id="sidebar">
-  <div class="brand"><div class="brand-icon">TR</div><div><h2>Tech Repeated</h2><span>AI Guide</span></div></div>
-  <button class="new-chat" id="newChat"><span>＋</span>New Chat</button>
-  <div class="sidebar-section">
-    <p>QUICK TOOLS</p>
-    <button class="tool-btn" data-prompt="Explain this coding concept in simple terms with an example."><span>📚</span>Learn</button>
-    <button class="tool-btn" data-prompt="Debug this code. Explain the error, why it happens, and give the corrected code."><span>🐛</span>Debug Code</button>
-    <button class="tool-btn" data-prompt="Write clean, production-ready code for the following requirement. Explain the important parts."><span>💻</span>Generate Code</button>
-    <button class="tool-btn" data-prompt="Explain this error and give me a step-by-step solution."><span>⚡</span>Fix Error</button>
-  </div>
-  <div class="sidebar-bottom">
-    <button class="side-option" id="themeToggle"><span>🌙</span><span>Toggle Theme</span></button>
-    <button class="side-option" id="clearChat"><span>🗑️</span><span>Clear Chat</span></button>
-  </div>
-</aside>
-
-<main class="main">
-<header class="topbar">
-  <button class="mobile-menu" id="mobileMenu">☰</button>
-  <div class="top-title"><strong>Tech Repeated Guide</strong><span class="status"><i></i> AI Online</span></div>
-  <button class="header-btn" id="newChatTop">＋ New Chat</button>
-</header>
-
-<section class="chat-area" id="chatArea">
-  <div class="welcome" id="welcome">
-    <div class="welcome-logo">TR</div>
-    <h1>How can I help you today?</h1>
-    <p>Your AI guide for coding, web development, debugging and technology.</p>
-    <div class="suggestions">
-      <button class="suggestion" data-prompt="Teach me HTML from beginner to advanced."><span>🌐</span><div><strong>Learn Web Development</strong><small>Start learning HTML, CSS and JavaScript</small></div></button>
-      <button class="suggestion" data-prompt="Explain this code and improve it for me."><span>💻</span><div><strong>Improve My Code</strong><small>Review and optimize your code</small></div></button>
-      <button class="suggestion" data-prompt="Give me a roadmap to become a full stack developer."><span>🚀</span><div><strong>Career Roadmap</strong><small>Build your technology roadmap</small></div></button>
-      <button class="suggestion" data-prompt="Give me 5 beginner-friendly AI projects I can build."><span>🤖</span><div><strong>AI Projects</strong><small>Get ideas and project guidance</small></div></button>
-    </div>
-  </div>
-  <div class="messages" id="messages"></div>
-</section>
-
-<footer class="composer">
-  <div class="input-box">
-    <textarea id="messageInput" rows="1" placeholder="Ask Tech Repeated Guide anything..."></textarea>
-    <button id="sendBtn" class="send-btn" aria-label="Send">➤</button>
-  </div>
-  <p class="disclaimer">Tech Repeated Guide can make mistakes. Verify important information.</p>
-</footer>
-</main>
+<div class="brand"><div class="brand-icon">TR</div><div><h2>Tech Repeated</h2><span>AI Guide</span></div></div>
+<button class="new-chat" id="newChat">＋ New Chat</button>
+<div class="sidebar-section"><p>QUICK TOOLS</p>
+<button class="tool-btn" data-prompt="Explain this coding concept in simple terms with an example.">📚 Learn</button>
+<button class="tool-btn" data-prompt="Debug this code. Explain the error, why it happens, and give the corrected code.">🐛 Debug Code</button>
+<button class="tool-btn" data-prompt="Write clean, production-ready code for the following requirement. Explain the important parts.">💻 Generate Code</button>
+<button class="tool-btn" data-prompt="Explain this error and give me a step-by-step solution.">⚡ Fix Error</button>
 </div>
-<script src="/static/script.js"></script>
+<div class="sidebar-bottom">
+<button class="side-option" id="themeToggle">🌙 Toggle Theme</button>
+<button class="side-option" id="clearChat">🗑️ Clear Chat</button>
+</div>
+</aside>
+<main class="main">
+<header class="topbar"><button class="mobile-menu" id="mobileMenu">☰</button><div class="top-title"><strong>Tech Repeated Guide</strong><span class="status"><i></i> AI Online</span></div><button class="header-btn" id="newChatTop">＋ New Chat</button></header>
+<section class="chat-area" id="chatArea">
+<div class="welcome" id="welcome">
+<div class="welcome-logo">TR</div><h1>How can I help you today?</h1>
+<p>Your AI guide for coding, web development, debugging and technology.</p>
+<div class="suggestions">
+<button class="suggestion" data-prompt="Teach me HTML from beginner to advanced.">🌐 <div><strong>Learn Web Development</strong><small>Start learning HTML, CSS and JavaScript</small></div></button>
+<button class="suggestion" data-prompt="Explain this code and improve it for me.">💻 <div><strong>Improve My Code</strong><small>Review and optimize your code</small></div></button>
+<button class="suggestion" data-prompt="Give me a roadmap to become a full stack developer.">🚀 <div><strong>Career Roadmap</strong><small>Build your technology roadmap</small></div></button>
+<button class="suggestion" data-prompt="Give me 5 beginner-friendly AI projects I can build.">🤖 <div><strong>AI Projects</strong><small>Get ideas and project guidance</small></div></button>
+</div></div>
+<div class="messages" id="messages"></div>
+</section>
+<footer class="composer"><div class="input-box"><textarea id="messageInput" rows="1" placeholder="Ask Tech Repeated Guide anything..."></textarea><button id="sendBtn" class="send-btn">➤</button></div><p class="disclaimer">Tech Repeated Guide can make mistakes. Verify important information.</p></footer>
+</main></div>
+<script src="/script.js"></script>
 </body>
 </html>
